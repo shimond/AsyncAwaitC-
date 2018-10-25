@@ -24,7 +24,7 @@ namespace AsyncAwaitEx
             this.Text = "Download finished.";
         }
 
-        private async void Download()
+        private  void Download()
         {
             int sum = 0;
             string[] urls = { "http://www.walla.co.il", "http://ynet.co.il", "http://nrg.co.il" };
@@ -32,7 +32,7 @@ namespace AsyncAwaitEx
             {
                 try
                 {
-                    int currentBytesCount = await GetBytesFromWeb(url);
+                    int currentBytesCount = GetBytesFromWeb(url);
                     listBox1.Items.Add($"Download finished {url} - {currentBytesCount}");
                     sum += currentBytesCount;
                 }
@@ -44,16 +44,14 @@ namespace AsyncAwaitEx
             lblTotal.Text = sum.ToString();
         }
 
-        Task<int> GetBytesFromWeb(string url)
+        int GetBytesFromWeb(string url)
         {
-            return Task.Factory.StartNew(() => {
                 Thread.Sleep(2500);
                 if (url.Contains("ynet"))
                 {
                     throw new Exception("Failed...");
                 }
                 return (new Random().Next(1000, 5000));
-            });
         }
     }
 }
